@@ -10,8 +10,10 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 
 import com.google.gson.Gson;
+import com.tt.training.model.Employee;
 import com.tt.training.wiring.Executor1;
 import com.tt.training.wiring.IExecutor;
 import com.tt.training.wiring.cont.spring.MyClass;
@@ -20,8 +22,8 @@ import com.tt.training.wiring.cont.spring.Formatter2;
 import com.tt.training.wiring.cont.spring.IFormat;
 
 
-
-@SpringBootApplication(scanBasePackages = {"com.tt.training","com.tt.development"} )
+@EnableGlobalMethodSecurity(prePostEnabled = true)
+@SpringBootApplication(scanBasePackages = {"com.tt.training","com.tt.development"},excludeName = "applicationEventMulticaster" )
 public class SpringttApplication implements ApplicationRunner{
 	
 	@Autowired

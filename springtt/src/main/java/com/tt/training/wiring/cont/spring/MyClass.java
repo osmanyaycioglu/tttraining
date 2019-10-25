@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
-import com.tt.training.Employee;
+import com.tt.training.model.Employee;
 
 public class MyClass {
 

@@ -6,7 +6,7 @@ import java.util.Properties;
 
 import org.springframework.core.env.Environment;
 
-import com.tt.training.Employee;
+import com.tt.training.model.Employee;
 
 public class MyClass {
 

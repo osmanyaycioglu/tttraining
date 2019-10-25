@@ -5,9 +5,11 @@ import javax.xml.ws.Endpoint;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.geo.Metric;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,17 +20,25 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.tt.training.Employee;
+import com.tt.training.db.IEmployeeDAO;
+import com.tt.training.model.Employee;
 import com.tt.training.wiring.IExecutor;
+
+import io.micrometer.core.annotation.Timed;
 
 @RestController
 public class MyFirstRest {
 
+	@Autowired
+	private IEmployeeDAO empDAO;
+	
 	@Qualifier("ali")
 	@Autowired
 	private IExecutor executor;
-
+	
+	@Timed(value = "my.metrics.rest.test")
 	@GetMapping(path = "/test")
+	@PreAuthorize("hasRole('USER')")
 	public String hello() {
 		return "hello world";
 	}
@@ -68,6 +78,7 @@ public class MyFirstRest {
 	
 	@PostMapping(path = "/hello5")
 	public Employee hello5(@Validated @RequestBody Employee employee) {
+		empDAO.save(employee);
 		employee.setName(employee.getName() + "Return");
 		return employee;
 	}
@@ -100,6 +111,11 @@ public class MyFirstRest {
 			this.errorMessage = errorMessage;
 		}
 		
+	}
+
+	@GetMapping(path = "/getEmp")
+	public String getEmp(@RequestParam("isim") String name) {
+		return "hello world " + name ;
 	}
 
 

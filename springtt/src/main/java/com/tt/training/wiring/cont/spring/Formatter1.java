@@ -1,6 +1,6 @@
 package com.tt.training.wiring.cont.spring;
 
-import com.tt.training.Employee;
+import com.tt.training.model.Employee;
 
 public class Formatter1 implements IFormat {
 

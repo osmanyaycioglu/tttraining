@@ -1,9 +1,20 @@
 package com.tt.training.customer.model;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
 public class Customer {
+	@Size(min = 2,max = 30)
+	@NotBlank
 	private String name;
+	@Size(min = 3,max = 30)
+	@NotBlank
 	private String surname;
 	private String job;
+	@Min(10)
+	@Max(100)
 	private int age;
 	public String getName() {
 		return name;
